@@ -236,7 +236,7 @@ var connectionHeaders = []string{
 // forwardRequest is the fallback handler for "/api/1/*".
 // It forwards GET and POST requests to Tesla using the proxy's OAuth token.
 func (p *Proxy) forwardRequest(acct *account.Account, w http.ResponseWriter, req *http.Request) {
-	ctx, cancel := context.WithTimeout(context.Background(), p.Timeout)
+	ctx, cancel := context.WithTimeout(req.Context(), p.Timeout)
 	defer cancel()
 
 	proxyReq, err := http.NewRequestWithContext(ctx, req.Method, req.URL.String(), req.Body)
